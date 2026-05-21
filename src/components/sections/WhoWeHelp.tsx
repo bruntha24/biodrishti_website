@@ -21,7 +21,8 @@ export const WhoWeHelp = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-[#fafafa] via-white to-[#f5f7fa]" />
         <div className="absolute inset-0 bg-gradient-to-tr from-[#0A7C6A]/5 via-transparent to-[#C9A84C]/5" />
 
-        <div className="absolute inset-0 pointer-events-none">
+        {/* PARTICLES FIXED (NO X MOVEMENT = NO HORIZONTAL SCROLL) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {particles.map((p) => (
             <motion.div
               key={p.id}
@@ -33,7 +34,6 @@ export const WhoWeHelp = () => {
               }}
               animate={{
                 y: [0, -30, 0],
-                x: [0, 15, -15, 0],
                 opacity: [0, 0.5, 0],
                 scale: [0.5, 1.2, 0.5],
               }}
@@ -48,12 +48,11 @@ export const WhoWeHelp = () => {
         </div>
       </div>
 
-      <div className="container relative z-20 overflow-x-hidden">
+      <div className="container relative z-20 overflow-hidden">
 
         {/* HEADER */}
         <div className="mb-12 max-w-3xl">
 
-          {/* 🔥 INCREASED HEADING SIZE */}
           <h2 className="mt-3 max-w-4xl font-serif text-4xl leading-[1.2] text-[#0D1B2A] md:text-5xl lg:text-6xl">
             For students at every stage —
             <span className="italic text-[#0A7C6A]">
@@ -70,9 +69,9 @@ export const WhoWeHelp = () => {
         </div>
 
         {/* TIMELINE */}
-        <div className="relative">
+        <div className="relative overflow-hidden">
 
-          {/* SPINE (HIDDEN ON MOBILE) */}
+          {/* SPINE */}
           <div className="absolute left-1/2 top-0 bottom-0 hidden w-[2px] -translate-x-1/2 bg-[#0D1B2A]/10 md:block">
             <motion.div
               animate={{ y: ["-10%", "110%"] }}
