@@ -52,31 +52,31 @@ const CountUp = ({
   value: number;
   suffix?: string;
 }) => {
+  const ref = useRef<HTMLSpanElement | null>(null);
+
   const count = useMotionValue(0);
   const rounded = useTransform(count, (v) => Math.round(v));
 
-  const ref = useRef(null);
-
   const isInView = useInView(ref, {
     once: true,
-    margin: "-100px",
+    margin: "-50px",
   });
 
   useEffect(() => {
     if (!isInView) return;
 
     const controls = animate(count, value, {
-      duration: 0.9, // 🔥 faster
+      duration: 1.2,
       ease: "easeOut",
     });
 
     return () => controls.stop();
-  }, [count, value, isInView]);
+  }, [isInView, value, count]);
 
   return (
-    <span ref={ref} className="inline-flex">
+    <span ref={ref} className="inline-flex items-center">
       <motion.span>{rounded}</motion.span>
-      {suffix}
+      <span>{suffix}</span>
     </span>
   );
 };
