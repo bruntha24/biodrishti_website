@@ -66,14 +66,18 @@ export const Hero = () => {
 
   const { scrollY } = useScroll();
 
+  // Text Animations
   const heroOpacity = useTransform(scrollY, [0, 700], [1, 0]);
   const heroY = useTransform(scrollY, [0, 700], [
     0,
     prefersReducedMotion ? 0 : -90,
   ]);
-  const heroScale = useTransform(scrollY, [0, 700], [
-    1,
-    prefersReducedMotion ? 1 : 0.97,
+
+  // Premium DNA Animations (Fix 3)
+  const dnaOpacity = useTransform(scrollY, [0, 1500], [1, 1]);
+  const dnaScale = useTransform(scrollY, [0, 1000], [
+    1, 
+    prefersReducedMotion ? 1 : 0.95
   ]);
 
   const backgroundScale = useTransform(scrollY, [0, 800], [
@@ -159,29 +163,34 @@ export const Hero = () => {
       />
 
       {/* ================= MAIN CONTENT ================= */}
-      <motion.div
-        style={{
-          opacity: heroOpacity,
-          y: heroY,
-          scale: heroScale,
-        }}
-        className="relative z-20 container grid grid-cols-1 items-center gap-20 lg:grid-cols-12"
-      >
+      <div className="relative z-20 container grid grid-cols-1 items-center gap-20 lg:grid-cols-12">
         {/* TEXT */}
-        <div className="lg:col-span-6">
+        <motion.div
+          className="lg:col-span-6"
+          style={{
+            opacity: heroOpacity,
+            y: heroY,
+          }}
+        >
           <HeroContent textX={textX} textY={textY} />
-        </div>
+        </motion.div>
 
-        {/* VISUAL (FORCED ABOVE EVERYTHING) */}
-        <div className="relative lg:col-span-6 z-30">
+        {/* VISUAL (FORCED ABOVE EVERYTHING - PREMIUM ANCHORED MOTION) */}
+        <motion.div
+          className="relative lg:col-span-6 z-30"
+          style={{
+            scale: dnaScale,
+            opacity: dnaOpacity,
+          }}
+        >
           <HeroVisual
             visualX={visualX}
             visualY={visualY}
             visualRotX={visualRotX}
             visualRotY={visualRotY}
           />
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* ================= SCROLL INDICATOR ================= */}
       <motion.a
@@ -212,3 +221,4 @@ export const Hero = () => {
 };
 
 export default Hero;
+
