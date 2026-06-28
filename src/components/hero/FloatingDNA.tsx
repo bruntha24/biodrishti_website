@@ -1,4 +1,3 @@
-
 import { motion, type MotionValue } from "framer-motion";
 import {
   FlaskConical,
@@ -8,9 +7,6 @@ import {
   Microscope,
   Sparkles,
 } from "lucide-react";
-
-import { floatingAnimation } from "@/components/animations/floating";
-import heroHelix from "@/assets/images/hero-helix.webp";
 
 interface FloatingDNAProps {
   visualX: MotionValue<number>;
@@ -147,7 +143,6 @@ export const FloatingDNA = ({
 
         {/* ================= PREMIUM AMBER/YELLOW BIO-DOTS ================= */}
         {Array.from({ length: 10 }).map((_, i) => {
-          // Micro-variations for high-end organic feel
           const size = i % 3 === 0 ? "h-1 w-1" : i % 3 === 1 ? "h-1.5 w-1.5" : "h-[2px] w-[2px]";
           const blurIntensity = i % 2 === 0 ? "blur-[0.5px]" : "blur-none";
           
@@ -193,18 +188,8 @@ export const FloatingDNA = ({
           <ScrollColumn items={rightDomains} direction="down" />
         </div>
 
-        {/* ================= CORE DNA ================= */}
-        <motion.div
-          variants={floatingAnimation}
-          animate="animate"
-          className="absolute inset-0 flex items-center justify-center z-20"
-        >
-          <img
-            src={heroHelix}
-            alt="DNA Helix"
-            className="h-full w-full sm:h-[92%] sm:w-[92%] lg:h-[85%] lg:w-[85%] object-contain drop-shadow-[0_15px_35px_rgba(14,158,136,0.25)]"
-          />
-        </motion.div>
+        {/* ================= CENTER SPACER ================= */}
+        <div className="absolute inset-0 flex items-center justify-center z-20" />
 
         {/* ================= DESKTOP CENTER TEXT CARD ================= */}
         <div className="hidden sm:block pointer-events-none absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
