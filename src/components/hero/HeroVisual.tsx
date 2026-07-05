@@ -1,5 +1,5 @@
 import type { MotionValue } from "framer-motion";
-import { FloatingDNA } from "@/components/hero/FloatingDNA";
+import { Suspense, lazy } from "react";
 
 interface HeroVisualProps {
   visualX: MotionValue<number>;
@@ -8,8 +8,13 @@ interface HeroVisualProps {
   visualRotY: MotionValue<number>;
 }
 
+// ✅ Vite lazy loading
+const FloatingDNA = lazy(() => import("@/components/hero/FloatingDNA"));
+
 export const HeroVisual = (props: HeroVisualProps) => (
   <div className="relative lg:col-span-6" style={{ perspective: 1600 }}>
-    <FloatingDNA {...props} />
+    <Suspense fallback={<div className="h-[400px]" />}>
+      <FloatingDNA {...props} />
+    </Suspense>
   </div>
 );

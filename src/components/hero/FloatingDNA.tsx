@@ -1,12 +1,4 @@
 import { motion, type MotionValue } from "framer-motion";
-import {
-  FlaskConical,
-  FileCheck,
-  BrainCircuit,
-  ShieldCheck,
-  Microscope,
-  Sparkles,
-} from "lucide-react";
 
 interface FloatingDNAProps {
   visualX: MotionValue<number>;
@@ -14,6 +6,61 @@ interface FloatingDNAProps {
   visualRotX: MotionValue<number>;
   visualRotY: MotionValue<number>;
 }
+
+/* ================= LIGHTWEIGHT LIGHTNING-FAST SVG COMPONENTS ================= */
+const IconFlask = (props: React.ComponentProps<"svg">) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M10 2v7.5L4.5 18H19.5L14 9.5V2" />
+    <path d="M10 2h4" />
+    <path d="M8.5 11h7" />
+  </svg>
+);
+
+const IconFile = (props: React.ComponentProps<"svg">) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+    <path d="m9 15 2 2 4-4" />
+  </svg>
+);
+
+const IconBrain = (props: React.ComponentProps<"svg">) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+    <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+    <path d="M12 5v14" />
+    <path d="M12 12h6" />
+    <path d="M12 12H6" />
+  </svg>
+);
+
+const IconShield = (props: React.ComponentProps<"svg">) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M20 13c0 5-3.5 7.5-7.66 9.7a1 1 0 0 1-.68 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 .76-.97l8-2a1 1 0 0 1 .48 0l8 2A1 1 0 0 1 20 6Z" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
+);
+
+const IconMicroscope = (props: React.ComponentProps<"svg">) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M6 18h8" />
+    <path d="M3 22h18" />
+    <path d="M14 22a7 7 0 1 0-14 0" />
+    <path d="M14 14h2" />
+    <path d="M14 10h4" />
+    <path d="M12 6h2" />
+    <path d="M14 2v4" />
+    <path d="M8 2h4" />
+  </svg>
+);
+
+const IconSparkle = (props: React.ComponentProps<"svg">) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z" />
+    <path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5.5Z" />
+    <path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z" />
+  </svg>
+);
 
 /* ================= DATA ================= */
 const domains = [
@@ -35,12 +82,12 @@ const leftDomains = domains.slice(0, 6);
 const rightDomains = domains.slice(6, 12);
 
 const highlights = [
-  { label: "Idea Validation", icon: FlaskConical, pos: "left-[3%] top-[14%]" },
-  { label: "Publication Ready", icon: FileCheck, pos: "right-[3%] top-[14%]" },
-  { label: "Structured Mentorship", icon: BrainCircuit, pos: "left-[1%] bottom-[26%]" },
-  { label: "Research Culture", icon: Sparkles, pos: "right-[1%] bottom-[26%]" },
-  { label: "Scientific Rigor", icon: ShieldCheck, pos: "left-[14%] -top-[2%]" },
-  { label: "Methodology Review", icon: Microscope, pos: "right-[14%] -bottom-[2%]" },
+  { label: "Idea Validation", icon: IconFlask, pos: "left-[3%] top-[14%]" },
+  { label: "Publication Ready", icon: IconFile, pos: "right-[3%] top-[14%]" },
+  { label: "Structured Mentorship", icon: IconBrain, pos: "left-[1%] bottom-[26%]" },
+  { label: "Research Culture", icon: IconSparkle, pos: "right-[1%] bottom-[26%]" },
+  { label: "Scientific Rigor", icon: IconShield, pos: "left-[14%] -top-[2%]" },
+  { label: "Methodology Review", icon: IconMicroscope, pos: "right-[14%] -bottom-[2%]" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -357,7 +404,7 @@ export const FloatingDNA = ({
                     }}
                     className="grid h-6 w-6 place-items-center rounded-lg bg-primary/10 ring-1 ring-primary-glow/25 shrink-0"
                   >
-                    <Icon className="h-3 w-3 text-primary" strokeWidth={2} />
+                    <Icon className="h-3 w-3 text-primary" />
                   </motion.span>
                   <span className="text-[10px] font-medium leading-tight text-foreground/90">
                     {item.label}
@@ -415,3 +462,4 @@ export const FloatingDNA = ({
 };
 
 export default FloatingDNA;
+
