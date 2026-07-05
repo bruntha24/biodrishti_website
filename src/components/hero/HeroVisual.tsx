@@ -8,8 +8,20 @@ interface HeroVisualProps {
   visualRotY: MotionValue<number>;
 }
 
-export const HeroVisual = (props: HeroVisualProps) => (
-  <div className="relative lg:col-span-6" style={{ perspective: 1600 }}>
-    <FloatingDNA {...props} />
-  </div>
-);
+export const HeroVisual = ({
+  visualX,
+  visualY,
+  visualRotX,
+  visualRotY,
+}: HeroVisualProps) => {
+  return (
+    <div className="relative w-full flex justify-center items-center">
+      <FloatingDNA
+        visualX={visualX}
+        visualY={visualY}
+        visualRotX={visualRotX}
+        visualRotY={visualRotY}
+      />
+    </div>
+  );
+};
