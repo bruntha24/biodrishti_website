@@ -1,4 +1,5 @@
 import { motion, type MotionValue } from "framer-motion";
+import type { SVGProps } from "react";
 
 interface FloatingDNAProps {
   visualX: MotionValue<number>;
@@ -7,42 +8,45 @@ interface FloatingDNAProps {
   visualRotY: MotionValue<number>;
 }
 
-/* ================= LIGHTWEIGHT LIGHTNING-FAST SVG COMPONENTS ================= */
-const IconFlask = (props: React.ComponentProps<"svg">) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+/* ================= LIGHTWEIGHT SVG ICONS ================= */
+const svgBase = {
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+};
+
+const IconFlask = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...svgBase} {...p}>
     <path d="M10 2v7.5L4.5 18H19.5L14 9.5V2" />
     <path d="M10 2h4" />
     <path d="M8.5 11h7" />
   </svg>
 );
-
-const IconFile = (props: React.ComponentProps<"svg">) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+const IconFile = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...svgBase} {...p}>
     <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
     <path d="M14 2v4a2 2 0 0 0 2 2h4" />
     <path d="m9 15 2 2 4-4" />
   </svg>
 );
-
-const IconBrain = (props: React.ComponentProps<"svg">) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+const IconBrain = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...svgBase} {...p}>
     <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
     <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
     <path d="M12 5v14" />
-    <path d="M12 12h6" />
-    <path d="M12 12H6" />
   </svg>
 );
-
-const IconShield = (props: React.ComponentProps<"svg">) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+const IconShield = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...svgBase} {...p}>
     <path d="M20 13c0 5-3.5 7.5-7.66 9.7a1 1 0 0 1-.68 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 .76-.97l8-2a1 1 0 0 1 .48 0l8 2A1 1 0 0 1 20 6Z" />
     <path d="m9 12 2 2 4-4" />
   </svg>
 );
-
-const IconMicroscope = (props: React.ComponentProps<"svg">) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+const IconMicroscope = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...svgBase} {...p}>
     <path d="M6 18h8" />
     <path d="M3 22h18" />
     <path d="M14 22a7 7 0 1 0-14 0" />
@@ -53,12 +57,9 @@ const IconMicroscope = (props: React.ComponentProps<"svg">) => (
     <path d="M8 2h4" />
   </svg>
 );
-
-const IconSparkle = (props: React.ComponentProps<"svg">) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+const IconSparkle = (p: SVGProps<SVGSVGElement>) => (
+  <svg {...svgBase} {...p}>
     <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z" />
-    <path d="m5 3 1 2.5L8.5 6 6 7 5 9.5 4 7 1.5 6 4 5.5Z" />
-    <path d="m19 17 1 2.5 2.5.5-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1Z" />
   </svg>
 );
 
@@ -107,7 +108,7 @@ const ScrollColumn = ({
       <motion.div
         className="flex flex-col gap-2 sm:gap-3"
         animate={{ y: direction === "up" ? ["0%", "-50%"] : ["-50%", "0%"] }}
-        transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       >
         {looped.map((item, i) => (
           <div
@@ -148,138 +149,38 @@ export const FloatingDNA = ({
     >
       {/* ================= GRAPHIC WRAPPER ================= */}
       <div className="relative w-full aspect-square max-w-[280px] xs:max-w-[300px] sm:max-w-none sm:absolute sm:inset-0 [perspective:1000px]">
-
-        {/* ============ PREMIUM MOBILE ATMOSPHERE ============ */}
-        {/* Breathing conic aurora */}
+        {/* Soft ambient backglow — single slow pulse */}
         <motion.div
-          animate={{ rotate: 360, scale: [1, 1.08, 1] }}
-          transition={{
-            rotate: { duration: 40, repeat: Infinity, ease: "linear" },
-            scale: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-          }}
-          className="absolute inset-0 rounded-full sm:hidden pointer-events-none opacity-70"
-          style={{
-            background:
-              "conic-gradient(from 0deg, transparent, hsl(var(--primary-glow)/0.25), transparent, hsl(var(--accent)/0.2), transparent)",
-            filter: "blur(24px)",
-          }}
+          animate={{ opacity: [0.55, 0.8, 0.55] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-6 rounded-full bg-primary-glow/15 blur-[40px] sm:inset-10 sm:blur-[90px] pointer-events-none"
         />
+        <div className="absolute inset-16 rounded-full bg-accent/10 blur-[30px] sm:blur-[70px] pointer-events-none" />
 
-        {/* Deep ambient backglow */}
-        <motion.div
-          animate={{ scale: [1, 1.06, 1], opacity: [0.7, 1, 0.7] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-4 rounded-full bg-primary-glow/15 sm:bg-primary-glow/15 blur-[36px] sm:blur-[90px]"
-        />
-        <motion.div
-          animate={{ scale: [1.05, 1, 1.05], opacity: [0.6, 0.9, 0.6] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-          className="absolute inset-12 rounded-full bg-accent/10 blur-[28px] sm:blur-[70px]"
-        />
-
-        {/* Orbital rings — layered kinetic structure (mobile only) */}
+        {/* Refined rings (mobile) — mostly static, one very slow rotation */}
+        <div className="absolute inset-1 rounded-full border border-primary-glow/15 sm:hidden pointer-events-none" />
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-1 rounded-full border border-dashed border-primary-glow/25 sm:hidden pointer-events-none"
+          transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-6 rounded-full border border-dashed border-primary/15 sm:hidden pointer-events-none"
         />
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-6 rounded-full border border-dotted border-accent/30 sm:hidden pointer-events-none"
-        />
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-10 rounded-full border border-primary/20 sm:hidden pointer-events-none"
-          style={{ borderStyle: "solid", borderWidth: "0.5px" }}
-        />
+        <div className="absolute inset-12 rounded-full border border-accent/15 sm:hidden pointer-events-none" />
 
-        {/* Orbiting satellite dots on rings (mobile) */}
-        {[0, 1, 2].map((ring) => (
-          <motion.div
-            key={`orbit-${ring}`}
-            animate={{ rotate: ring % 2 === 0 ? 360 : -360 }}
-            transition={{
-              duration: 12 + ring * 4,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className={`absolute rounded-full sm:hidden pointer-events-none ${
-              ring === 0 ? "inset-1" : ring === 1 ? "inset-6" : "inset-10"
-            }`}
-          >
-            <span
-              className="absolute left-1/2 -translate-x-1/2 -top-1 h-2 w-2 rounded-full bg-primary-glow shadow-[0_0_12px_rgba(129,140,248,0.9)]"
-            />
-            <span
-              className="absolute left-1/2 -translate-x-1/2 -bottom-1 h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_10px_rgba(245,158,11,0.8)]"
-            />
-          </motion.div>
-        ))}
-
-        {/* Primary particles */}
-        {Array.from({ length: isDesktop ? 14 : 10 }).map((_, i) => (
+        {/* A few tasteful drifting particles */}
+        {Array.from({ length: 5 }).map((_, i) => (
           <motion.span
-            key={`p-primary-${i}`}
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 0.8, 0],
-              y: [0, isDesktop ? -20 : -40, 0],
-              x: [0, i % 2 === 0 ? 10 : -10, 0],
-              scale: [0.6, 1.2, 0.6],
-            }}
+            key={`p-${i}`}
+            animate={{ opacity: [0, 0.7, 0], y: [0, -20, 0] }}
             transition={{
-              duration: 4 + (i % 3),
+              duration: 6 + i,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: i * 0.2,
+              delay: i * 0.8,
             }}
-            className="absolute h-1 w-1 rounded-full bg-primary-glow shadow-[0_0_6px_rgba(129,140,248,0.7)]"
-            style={{ left: `${(i * 37) % 100}%`, top: `${(i * 53) % 100}%` }}
+            className="absolute h-1 w-1 rounded-full bg-primary-glow shadow-[0_0_6px_rgba(129,140,248,0.6)] pointer-events-none"
+            style={{ left: `${20 + i * 15}%`, top: `${25 + ((i * 17) % 50)}%` }}
           />
         ))}
-
-        {/* Amber bio-dots — shimmering */}
-        {Array.from({ length: isDesktop ? 10 : 8 }).map((_, i) => {
-          const size =
-            i % 3 === 0 ? "h-1 w-1" : i % 3 === 1 ? "h-1.5 w-1.5" : "h-[2px] w-[2px]";
-          return (
-            <motion.span
-              key={`p-yellow-${i}`}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{
-                opacity: [0, 1, 0],
-                y: [0, -45, -10],
-                x: [0, i % 2 === 0 ? 14 : -14, 0],
-                scale: [0.5, 1.2, 0.3],
-              }}
-              transition={{
-                duration: 4.5 + (i % 3),
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.25,
-              }}
-              className={`absolute rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-amber-200 shadow-[0_0_10px_rgba(245,158,11,0.6)] z-30 ${size}`}
-              style={{
-                left: `${15 + ((i * 31) % 70)}%`,
-                top: `${10 + ((i * 43) % 75)}%`,
-              }}
-            />
-          );
-        })}
-
-        {/* Sweeping light beam (mobile only) */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 rounded-full sm:hidden pointer-events-none"
-          style={{
-            background:
-              "conic-gradient(from 0deg, transparent 0deg, transparent 340deg, hsl(var(--primary-glow)/0.35) 355deg, transparent 360deg)",
-            filter: "blur(2px)",
-          }}
-        />
 
         {/* Scroll columns (desktop) */}
         <div className="hidden md:block absolute left-[5%] top-1/2 -translate-y-1/2">
@@ -304,58 +205,22 @@ export const FloatingDNA = ({
           </div>
         </div>
 
-        {/* Mobile center brand chip — premium 3D float */}
+        {/* Mobile center brand chip — subtle premium fade-in */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            y: ["-50%", "-53%", "-47%", "-50%"],
-            x: ["-50%", "-48%", "-52%", "-50%"],
-            rotateZ: [0, 0.8, -0.8, 0],
-          }}
-          transition={{
-            opacity: { duration: 0.6, ease: EASE },
-            scale: { duration: 0.6, ease: EASE },
-            y: { duration: 7, repeat: Infinity, ease: "easeInOut" },
-            x: { duration: 9, repeat: Infinity, ease: "easeInOut" },
-            rotateZ: { duration: 8, repeat: Infinity, ease: "easeInOut" },
-          }}
-          className="sm:hidden pointer-events-none absolute left-1/2 top-1/2 z-30 w-[76%]"
-          style={{ transformStyle: "preserve-3d" }}
+          initial={{ opacity: 0, y: "-46%", x: "-50%" }}
+          animate={{ opacity: 1, y: "-50%", x: "-50%" }}
+          transition={{ duration: 0.7, ease: EASE }}
+          className="sm:hidden pointer-events-none absolute left-1/2 top-1/2 z-30 w-[78%]"
         >
-          {/* Halo glow behind chip */}
-          <motion.div
-            animate={{ opacity: [0.4, 0.8, 0.4], scale: [0.95, 1.1, 0.95] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -inset-3 rounded-2xl bg-primary-glow/25 blur-2xl"
-          />
-
-          <div className="relative flex flex-col items-center gap-1 rounded-2xl border border-primary/25 bg-gradient-to-b from-card/95 to-card/80 px-3.5 py-3 text-center backdrop-blur-xl shadow-[0_12px_40px_-8px_rgba(0,0,0,0.35)] overflow-hidden">
-            {/* Sheen sweep across chip */}
-            <motion.div
-              animate={{ x: ["-120%", "220%"] }}
-              transition={{
-                duration: 3.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                repeatDelay: 1.2,
-              }}
-              className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none"
-            />
-
+          <div className="absolute -inset-2 rounded-2xl bg-primary-glow/15 blur-xl" />
+          <div className="relative flex flex-col items-center gap-1 rounded-2xl border border-border/80 bg-card/95 px-4 py-3 text-center backdrop-blur-xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)]">
             <div className="text-[8px] font-mono font-bold uppercase tracking-[0.28em] text-accent">
-              <motion.span
-                animate={{ opacity: [0.7, 1, 0.7] }}
-                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-              >
-                ◆ BioDrishti ◆
-              </motion.span>
+              ◆ BioDrishti ◆
             </div>
-            <div className="text-[11px] font-bold text-foreground leading-snug tracking-wide">
+            <div className="text-[12px] font-bold text-foreground leading-snug tracking-wide">
               Better Science Through Mentorship
             </div>
-            <div className="text-[7.5px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="text-[8px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Research Ecosystem · India
             </div>
           </div>
@@ -368,17 +233,14 @@ export const FloatingDNA = ({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
-          className="relative rounded-2xl border border-border/60 bg-card/80 backdrop-blur-xl shadow-lg p-3.5 space-y-3 overflow-hidden"
+          className="relative rounded-2xl border border-border/60 bg-card/85 backdrop-blur-xl shadow-lg p-3.5 space-y-3 overflow-hidden"
         >
-          {/* Subtle animated top border gradient */}
-          <motion.div
-            animate={{ backgroundPosition: ["0% 0%", "200% 0%"] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-x-0 top-0 h-px opacity-70"
+          {/* Static premium top hairline */}
+          <div
+            className="absolute inset-x-6 top-0 h-px opacity-80"
             style={{
               background:
-                "linear-gradient(90deg, transparent, hsl(var(--primary-glow)/0.8), hsl(var(--accent)/0.8), transparent)",
-              backgroundSize: "200% 100%",
+                "linear-gradient(90deg, transparent, hsl(var(--primary-glow)/0.7), hsl(var(--accent)/0.7), transparent)",
             }}
           />
 
@@ -388,24 +250,14 @@ export const FloatingDNA = ({
               return (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, scale: 0.9, y: 14 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease: EASE }}
-                  className="group relative flex items-center gap-2 rounded-xl border border-border/50 bg-background/50 p-2 active:border-primary/50 transition-colors overflow-hidden"
+                  className="flex items-center gap-2 rounded-xl border border-border/50 bg-background/50 p-2 active:border-primary/50 transition-colors"
                 >
-                  <motion.span
-                    animate={{ rotate: [0, 6, -6, 0], scale: [1, 1.08, 1] }}
-                    transition={{
-                      duration: 3.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: i * 0.3,
-                    }}
-                    className="grid h-6 w-6 place-items-center rounded-lg bg-primary/10 ring-1 ring-primary-glow/25 shrink-0"
-                  >
+                  <span className="grid h-6 w-6 place-items-center rounded-lg bg-primary/10 ring-1 ring-primary-glow/25 shrink-0">
                     <Icon className="h-3 w-3 text-primary" />
-                  </motion.span>
+                  </span>
                   <span className="text-[10px] font-medium leading-tight text-foreground/90">
                     {item.label}
                   </span>
@@ -419,7 +271,7 @@ export const FloatingDNA = ({
             <motion.div
               className="flex gap-2 whitespace-nowrap"
               animate={{ x: ["0%", "-50%"] }}
-              transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
             >
               {[...domains, ...domains].map((d, i) => (
                 <span
@@ -462,4 +314,3 @@ export const FloatingDNA = ({
 };
 
 export default FloatingDNA;
-
