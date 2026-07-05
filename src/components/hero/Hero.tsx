@@ -66,18 +66,16 @@ export const Hero = () => {
 
   const { scrollY } = useScroll();
 
-  // Text Animations
   const heroOpacity = useTransform(scrollY, [0, 700], [1, 0]);
   const heroY = useTransform(scrollY, [0, 700], [
     0,
     prefersReducedMotion ? 0 : -90,
   ]);
 
-  // Premium DNA Animations (Fix 3)
   const dnaOpacity = useTransform(scrollY, [0, 1500], [1, 1]);
   const dnaScale = useTransform(scrollY, [0, 1000], [
-    1, 
-    prefersReducedMotion ? 1 : 0.95
+    1,
+    prefersReducedMotion ? 1 : 0.95,
   ]);
 
   const backgroundScale = useTransform(scrollY, [0, 800], [
@@ -92,29 +90,32 @@ export const Hero = () => {
       ref={ref}
       onMouseMove={prefersReducedMotion ? undefined : onMouseMove}
       onMouseLeave={prefersReducedMotion ? undefined : onMouseLeave}
-      className="relative isolate min-h-screen overflow-hidden bg-background pt-32 pb-24 lg:pt-40 lg:pb-32"
+      className="
+        relative isolate min-h-screen overflow-hidden bg-background
+        pt-20 pb-16
+        sm:pt-24 sm:pb-20
+        lg:pt-40 lg:pb-32
+      "
       style={{ perspective: 2000 }}
     >
-      {/* ================= SAFE BACKGROUND ================= */}
+      {/* SAFE BACKGROUND */}
       <motion.div
         style={{ scale: backgroundScale }}
         className="absolute inset-0 -z-30"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(var(--background))_0%,#e2e8f0_55%,#d6deea_100%)]" />
-
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(127,184,166,0.08),transparent_50%),radial-gradient(circle_at_80%_20%,rgba(198,179,122,0.06),transparent_50%),radial-gradient(circle_at_50%_80%,rgba(10,124,106,0.04),transparent_60%)]" />
       </motion.div>
 
-      {/* ================= AURORA ================= */}
       <GlowBackground auroraX={auroraX} auroraY={auroraY} variant="hero" />
 
-      {/* ================= FLOATING LIGHTS (REDUCED IMPACT) ================= */}
+      {/* FLOATING LIGHTS */}
       <motion.div
         animate={
           prefersReducedMotion
             ? {}
             : {
-                opacity: [0.04, 0.10, 0.04],
+                opacity: [0.04, 0.1, 0.04],
                 scale: [1, 1.03, 1],
                 y: [0, -10, 0],
               }
@@ -123,13 +124,12 @@ export const Hero = () => {
         className="pointer-events-none absolute left-1/2 top-[-20%] -z-20 h-[520px] w-[520px] md:h-[760px] md:w-[760px] -translate-x-1/2 rounded-full bg-[#C6B37A]/10 blur-[120px] md:blur-[180px]"
       />
 
-      {/* ================= FIXED VISUAL BACKDROP (IMPORTANT) ================= */}
+      {/* BACKDROP */}
       <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 z-0">
-        {/* THIS IS THE KEY FIX: dark support behind image */}
         <div className="h-[360px] w-[360px] md:h-[600px] md:w-[600px] bg-black/10 md:bg-black/5 rounded-full blur-[100px]" />
       </div>
 
-      {/* ================= GRID ================= */}
+      {/* GRID */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.03]"
         style={{
@@ -143,13 +143,13 @@ export const Hero = () => {
         }}
       />
 
-      {/* ================= PARTICLES (SOFT) ================= */}
+      {/* PARTICLES */}
       <ParticleField
         count={prefersReducedMotion ? 0 : 14}
         className="-z-10 opacity-50 md:opacity-70"
       />
 
-      {/* ================= FLOATING RINGS ================= */}
+      {/* RINGS */}
       <motion.div
         animate={prefersReducedMotion ? {} : { rotate: 360 }}
         transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
@@ -162,26 +162,18 @@ export const Hero = () => {
         className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[500px] w-[500px] md:h-[700px] md:w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C6B37A]/5"
       />
 
-      {/* ================= MAIN CONTENT ================= */}
-      <div className="relative z-20 container grid grid-cols-1 items-center gap-20 lg:grid-cols-12">
-        {/* TEXT */}
+      {/* MAIN CONTENT */}
+      <div className="relative z-20 container grid grid-cols-1 items-center gap-12 sm:gap-16 lg:grid-cols-12 lg:gap-20">
         <motion.div
           className="lg:col-span-6"
-          style={{
-            opacity: heroOpacity,
-            y: heroY,
-          }}
+          style={{ opacity: heroOpacity, y: heroY }}
         >
           <HeroContent textX={textX} textY={textY} />
         </motion.div>
 
-        {/* VISUAL (FORCED ABOVE EVERYTHING - PREMIUM ANCHORED MOTION) */}
         <motion.div
           className="relative lg:col-span-6 z-30"
-          style={{
-            scale: dnaScale,
-            opacity: dnaOpacity,
-          }}
+          style={{ scale: dnaScale, opacity: dnaOpacity }}
         >
           <HeroVisual
             visualX={visualX}
@@ -192,13 +184,13 @@ export const Hero = () => {
         </motion.div>
       </div>
 
-      {/* ================= SCROLL INDICATOR ================= */}
+      {/* SCROLL INDICATOR */}
       <motion.a
         href="#about"
         animate={prefersReducedMotion ? {} : { y: [0, 8, 0] }}
         transition={{ duration: 2.4, repeat: Infinity }}
         style={{ opacity: heroOpacity }}
-        className="pointer-events-auto absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4 z-20"
+        className="pointer-events-auto absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4 z-20"
       >
         <span className="text-[11px] italic uppercase tracking-[0.45em] text-black/50 pb-1">
           Explore
