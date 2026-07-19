@@ -133,19 +133,16 @@ export const FloatingDNA = ({
   visualRotX,
   visualRotY,
 }: FloatingDNAProps) => {
-  const isDesktop =
-    typeof window !== "undefined" ? window.innerWidth >= 768 : false;
-
   return (
     <motion.div
       style={{
         x: visualX,
         y: visualY,
-        rotateX: isDesktop ? visualRotX : 0,
-        rotateY: isDesktop ? visualRotY : 0,
+        rotateX: visualRotX,
+        rotateY: visualRotY,
         transformStyle: "preserve-3d",
       }}
-      className="relative mx-auto w-full flex flex-col items-center gap-4 sm:gap-6 sm:block sm:aspect-square sm:max-w-[460px] lg:max-w-[640px]"
+      className="relative mx-auto w-full aspect-square flex flex-col items-center gap-4 sm:block sm:max-w-[460px] lg:max-w-[640px]"
     >
       {/* ================= GRAPHIC WRAPPER ================= */}
       <div className="relative w-full aspect-square max-w-[280px] xs:max-w-[300px] sm:max-w-none sm:absolute sm:inset-0 [perspective:1000px]">
@@ -207,7 +204,7 @@ export const FloatingDNA = ({
 
         {/* Mobile center brand chip — subtle premium fade-in */}
         <motion.div
-          initial={{ opacity: 0, y: "-46%", x: "-50%" }}
+          initial={false}
           animate={{ opacity: 1, y: "-50%", x: "-50%" }}
           transition={{ duration: 0.7, ease: EASE }}
           className="sm:hidden pointer-events-none absolute left-1/2 top-1/2 z-30 w-[78%]"
@@ -230,7 +227,7 @@ export const FloatingDNA = ({
       {/* ================= MOBILE INFO PANEL ================= */}
       <div className="w-full max-w-[340px] px-2 z-30 sm:hidden">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
           className="relative rounded-2xl border border-border/60 bg-card/85 backdrop-blur-xl shadow-lg p-3.5 space-y-3 overflow-hidden"
@@ -250,7 +247,7 @@ export const FloatingDNA = ({
               return (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={false}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.06, ease: EASE }}
                   className="flex items-center gap-2 rounded-xl border border-border/50 bg-background/50 p-2 active:border-primary/50 transition-colors"
@@ -314,3 +311,4 @@ export const FloatingDNA = ({
 };
 
 export default FloatingDNA;
+
