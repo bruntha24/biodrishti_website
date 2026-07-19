@@ -1,3 +1,5 @@
+"use client";
+
 import {
   motion,
   useScroll,
@@ -5,32 +7,21 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
-import { lazy, Suspense, useRef } from "react";
+import { useRef } from "react";
 
 import { HeroContent } from "@/components/hero/HeroContent";
 import { HeroVisual } from "@/components/hero/HeroVisual";
 
+import { GlowBackground } from "@/components/ui/GlowBackground";
+import { ParticleField } from "@/components/ui/ParticleField";
+
 import { useParallaxPointer } from "@/components/animations/parallax";
 import { useMouseTracking } from "@/hooks/useMousePosition";
-
-// Lazy load decorative background components
-const GlowBackground = lazy(() =>
-  import("@/components/ui/GlowBackground").then((module) => ({
-    default: module.GlowBackground,
-  }))
-);
-
-const ParticleField = lazy(() =>
-  import("@/components/ui/ParticleField").then((module) => ({
-    default: module.ParticleField,
-  }))
-);
 
 export const Hero = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   const prefersReducedMotion = useReducedMotion();
-
   const { mx, my, sx, sy } = useParallaxPointer(1);
 
   const smoothSX = useSpring(sx, {
@@ -48,7 +39,6 @@ export const Hero = () => {
   const visualX = useTransform(smoothSX, (v) =>
     prefersReducedMotion ? 0 : v * 28
   );
-
   const visualY = useTransform(smoothSY, (v) =>
     prefersReducedMotion ? 0 : v * 28
   );
@@ -56,7 +46,6 @@ export const Hero = () => {
   const visualRotX = useTransform(smoothSY, (v) =>
     prefersReducedMotion ? 0 : v * -6
   );
-
   const visualRotY = useTransform(smoothSX, (v) =>
     prefersReducedMotion ? 0 : v * 8
   );
@@ -64,7 +53,6 @@ export const Hero = () => {
   const auroraX = useTransform(smoothSX, (v) =>
     prefersReducedMotion ? 0 : v * 45
   );
-
   const auroraY = useTransform(smoothSY, (v) =>
     prefersReducedMotion ? 0 : v * 45
   );
@@ -72,7 +60,6 @@ export const Hero = () => {
   const textX = useTransform(smoothSX, (v) =>
     prefersReducedMotion ? 0 : v * -10
   );
-
   const textY = useTransform(smoothSY, (v) =>
     prefersReducedMotion ? 0 : v * -10
   );
@@ -80,14 +67,12 @@ export const Hero = () => {
   const { scrollY } = useScroll();
 
   const heroOpacity = useTransform(scrollY, [0, 700], [1, 0]);
-
   const heroY = useTransform(scrollY, [0, 700], [
     0,
     prefersReducedMotion ? 0 : -90,
   ]);
 
   const dnaOpacity = useTransform(scrollY, [0, 1500], [1, 1]);
-
   const dnaScale = useTransform(scrollY, [0, 1000], [
     1,
     prefersReducedMotion ? 1 : 0.95,
@@ -113,26 +98,16 @@ export const Hero = () => {
       "
       style={{ perspective: 2000 }}
     >
-      {/* BACKGROUND */}
+      {/* SAFE BACKGROUND */}
       <motion.div
         style={{ scale: backgroundScale }}
         className="absolute inset-0 -z-30"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,hsl(var(--background))_0%,#e2e8f0_55%,#d6deea_100%)]" />
-
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(127,184,166,0.08),transparent_50%),radial-gradient(circle_at_80%_20%,rgba(198,179,122,0.06),transparent_50%),radial-gradient(circle_at_50%_80%,rgba(10,124,106,0.04),transparent_60%)]" />
       </motion.div>
 
-
-      {/* LAZY DECORATIVE BACKGROUND */}
-      <Suspense fallback={null}>
-        <GlowBackground
-          auroraX={auroraX}
-          auroraY={auroraY}
-          variant="hero"
-        />
-      </Suspense>
-
+      <GlowBackground auroraX={auroraX} auroraY={auroraY} variant="hero" />
 
       {/* FLOATING LIGHTS */}
       <motion.div
@@ -149,12 +124,10 @@ export const Hero = () => {
         className="pointer-events-none absolute left-1/2 top-[-20%] -z-20 h-[520px] w-[520px] md:h-[760px] md:w-[760px] -translate-x-1/2 rounded-full bg-[#C6B37A]/10 blur-[120px] md:blur-[180px]"
       />
 
-
       {/* BACKDROP */}
       <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 z-0">
         <div className="h-[360px] w-[360px] md:h-[600px] md:w-[600px] bg-black/10 md:bg-black/5 rounded-full blur-[100px]" />
       </div>
-
 
       {/* GRID */}
       <div
@@ -170,26 +143,33 @@ export const Hero = () => {
         }}
       />
 
-
       {/* PARTICLES */}
-      <Suspense fallback={null}>
-        <ParticleField
-          count={prefersReducedMotion ? 0 : 14}
-          className="-z-10 opacity-50 md:opacity-70"
-        />
-      </Suspense>
+      <ParticleField
+        count={prefersReducedMotion ? 0 : 14}
+        className="-z-10 opacity-50 md:opacity-70"
+      />
 
+      {/* RINGS */}
+      <motion.div
+        animate={prefersReducedMotion ? {} : { rotate: 360 }}
+        transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[650px] w-[650px] md:h-[900px] md:w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#0A7C6A]/5"
+      />
+
+      <motion.div
+        animate={prefersReducedMotion ? {} : { rotate: -360 }}
+        transition={{ duration: 110, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[500px] w-[500px] md:h-[700px] md:w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#C6B37A]/5"
+      />
 
       {/* MAIN CONTENT */}
       <div className="relative z-20 container grid grid-cols-1 items-center gap-12 sm:gap-16 lg:grid-cols-12 lg:gap-20">
-
         <motion.div
           className="lg:col-span-6"
           style={{ opacity: heroOpacity, y: heroY }}
         >
           <HeroContent textX={textX} textY={textY} />
         </motion.div>
-
 
         <motion.div
           className="relative lg:col-span-6 z-30"
@@ -202,9 +182,7 @@ export const Hero = () => {
             visualRotY={visualRotY}
           />
         </motion.div>
-
       </div>
-
 
       {/* SCROLL INDICATOR */}
       <motion.a
@@ -230,9 +208,8 @@ export const Hero = () => {
           />
         </div>
       </motion.a>
-
     </section>
   );
 };
 
-export default Hero;
+export default Hero;    
