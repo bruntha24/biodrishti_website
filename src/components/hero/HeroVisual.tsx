@@ -13,13 +13,21 @@ const FloatingDNA = lazy(() => import("@/components/hero/FloatingDNA"));
 
 export const HeroVisual = (props: HeroVisualProps) => (
   <div
-    className="relative lg:col-span-6 aspect-square w-full max-w-xl mx-auto"
+    className="
+      relative 
+      w-full
+      aspect-square
+      lg:col-span-6
+      max-w-xl
+      mx-auto
+      overflow-visible
+    "
     style={{ perspective: 1600 }}
   >
     <Suspense
       fallback={
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 aspect-square"
           aria-hidden="true"
         />
       }
